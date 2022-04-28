@@ -20,9 +20,6 @@
 
 */
 
-#define RS_TRUE_ 1;
-#define RS_FALSE_ 0;
-
 void menu(void)
 {
     printf("             Cadastro Pessoas           \n");
@@ -50,11 +47,61 @@ void AdicionaCadastro(struct Pessoa *pessoa)
 //função para Eeditar um cadastro existente
 void EditaCadastro(struct Pessoa *pessoa)
 {
-    /*
-    escolher a opção que deseja alterar entre:
-    nome, email ou cpf
-    */
-    
+    char option;
+
+    printf("escolha uma opção:\n");
+    printf("todas: \n");
+    printf("nome: \n");
+    printf("email: \n");
+    printf("cpf: \n");
+
+    switch (option)
+    {
+    case ALL:
+        printf("Seleção: todas as entradas\n");
+        memset(&pessoa->nome, '\0', sizeof(pessoa->nome));
+        memset(&pessoa->email, '\0', sizeof(pessoa->email));
+        memset(&pessoa->cpf, '\0', sizeof(pessoa->cpf));
+        
+        printf("Digite o nome\n");
+        scanf(" %[^\n]", pessoa->nome);
+        
+        printf("Digite e-mail\n");
+        scanf(" %s", pessoa->email);
+
+        printf("Digite cpf\n");
+        scanf(" %ld", &pessoa->cpf);
+        break;
+
+    case NAME:
+        printf("Seleção: Nome\n");
+        memset(&pessoa->nome, '\0', sizeof(pessoa->nome));
+        
+        printf("Digite o nome\n");
+        scanf(" %[^\n]", pessoa->nome);
+        break;
+
+    case EMAIL:
+        printf("Seleção: E-mail\n");
+
+        memset(&pessoa->email, '\0', sizeof(pessoa->email));
+
+        
+        printf("Digite e-mail\n");
+        scanf(" %s", pessoa->email);
+        break;
+
+    case CPF:
+        printf("Seleção: CPF\n");
+        memset(&pessoa->cpf, '\0', sizeof(pessoa->cpf));
+        
+        printf("Digite cpf\n");
+        scanf(" %ld", &pessoa->cpf);
+        break;
+        
+    default:
+        break;
+    }
 }
 
 int main()
@@ -68,34 +115,34 @@ int main()
 
     menu();
     //colocar a função dentro de um loop do-while
-    printf("escolha entre opção c, l, e, d ou f\n");
+    printf("escolha entre opção c, e, l, d ou f\n");
     do
     {
         char opcao;
         scanf(" %c", &opcao);
         switch(opcao)
         {
-            case 'c':
+            case CREATE:
                 flagFinaliza = 1;
                 printf("opção: %c\n", opcao);
                 AdicionaCadastro(pessoa);
                 break;
-            case 'l':
+            case EDIT:
                 flagFinaliza = 1;
                 printf("opção: %c\n", opcao);
                 //TODO
                 break;
-            case 'e':
+            case READ:
                 flagFinaliza = 1;
                 printf("opção: %c\n", opcao);
                 //TODO
                 break;
-            case 'd':
+            case DELETE:
                 flagFinaliza = 1;
                 printf("opção: %c\n", opcao);
                 //TODO
                 break;
-            case 'f':
+            case CLOSE:
                 flagFinaliza = 0;
                 //TODO
                 printf("opção: %s\n", opcao);
