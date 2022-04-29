@@ -44,7 +44,8 @@ void AdicionaCadastro(struct Pessoa *pessoa)
 
     printf("confirmar dados: nome[%s], email[%s], CPF[%li]", pessoa->nome, pessoa->email, pessoa->cpf);
 }
-//função para Eeditar um cadastro existente
+//função para Editar um cadastro existente
+
 void EditaCadastro(struct Pessoa *pessoa)
 {
     char option;
@@ -83,10 +84,8 @@ void EditaCadastro(struct Pessoa *pessoa)
 
     case EMAIL:
         printf("Seleção: E-mail\n");
-
         memset(&pessoa->email, '\0', sizeof(pessoa->email));
 
-        
         printf("Digite e-mail\n");
         scanf(" %s", pessoa->email);
         break;
@@ -98,7 +97,7 @@ void EditaCadastro(struct Pessoa *pessoa)
         printf("Digite cpf\n");
         scanf(" %ld", &pessoa->cpf);
         break;
-        
+
     default:
         break;
     }
@@ -130,7 +129,7 @@ int main()
             case EDIT:
                 flagFinaliza = 1;
                 printf("opção: %c\n", opcao);
-                //TODO
+                EditaCadastro(pessoa);
                 break;
             case READ:
                 flagFinaliza = 1;
