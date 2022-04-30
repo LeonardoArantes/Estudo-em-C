@@ -25,8 +25,8 @@ void menu(void)
     printf("             Cadastro Pessoas           \n");
     printf("----------------------------------------\n");
     printf("---- Escolha entre as opções abaixo ----\n");
-    printf("Criar:[c] Ler:[l] Editar:[e] Deletar:[d]\n");
-    printf("    caso queira finalizar digite:[f]    \n");
+    printf("Criar:[1] Ler:[2] Editar:[3] Deletar:[4]\n");
+    printf("    caso queira finalizar digite:[5]    \n");
 }
 
 //função para adicionar novo cadastro
@@ -45,16 +45,16 @@ void AdicionaCadastro(struct Pessoa *pessoa)
     printf("confirmar dados: nome[%s], email[%s], CPF[%li]", pessoa->nome, pessoa->email, pessoa->cpf);
 }
 //função para Editar um cadastro existente
-
 void EditaCadastro(struct Pessoa *pessoa)
 {
     char option;
 
+    printf("Edição de cadastro:\n");
     printf("escolha uma opção:\n");
-    printf("todas: \n");
-    printf("nome: \n");
-    printf("email: \n");
-    printf("cpf: \n");
+    printf("todas - 1: \n");
+    printf("nome - 2: \n");
+    printf("email - 3: \n");
+    printf("cpf - 4: \n");
 
     switch (option)
     {
@@ -104,54 +104,56 @@ void EditaCadastro(struct Pessoa *pessoa)
 }
 
 int main()
-{
-
-    setlocale(LC_ALL, "Portuguese"); 
-
+{  
     struct Pessoa *pessoa;
     char acrescentar;
     int flagFinaliza;
 
+    setlocale(LC_ALL, "Portuguese"); 
     menu();
     //colocar a função dentro de um loop do-while
-    printf("escolha entre opção c, e, l, d ou f\n");
     do
     {
-        char opcao;
-        scanf(" %c", &opcao);
+        int opcao;
+        scanf(" %d", &opcao);
         switch(opcao)
         {
-            case CREATE:
-                flagFinaliza = 1;
-                printf("opção: %c\n", opcao);
+            case 1:
+                flagFinaliza = RS_FALSE_;
+                printf("opção: %d\n", opcao);
                 AdicionaCadastro(pessoa);
                 break;
-            case EDIT:
-                flagFinaliza = 1;
-                printf("opção: %c\n", opcao);
+
+            case 2:
+                flagFinaliza = RS_FALSE_;
+                printf("opção: %d\n", opcao);
                 EditaCadastro(pessoa);
                 break;
-            case READ:
-                flagFinaliza = 1;
-                printf("opção: %c\n", opcao);
+
+            case 3:
+                flagFinaliza = RS_FALSE_;
+                printf("opção: %d\n", opcao);
                 //TODO
                 break;
-            case DELETE:
-                flagFinaliza = 1;
-                printf("opção: %c\n", opcao);
+
+            case 4:
+                flagFinaliza = RS_FALSE_;
+                printf("opção: %d\n", opcao);
                 //TODO
                 break;
-            case CLOSE:
-                flagFinaliza = 0;
-                //TODO
-                printf("opção: %s\n", opcao);
-                break;    
+
+            case 5:
+                flagFinaliza = RS_FALSE_;
+                printf("opção: %d\n", opcao);
+                break;
+
             default:
+                flagFinaliza = RS_TRUE_;
                 printf("codigo invalido, digite novamente");
                 break;
         }
                
-    } while(flagFinaliza = 0);         
+    } while(flagFinaliza = RS_TRUE_);         
 
     return 0;
 }
