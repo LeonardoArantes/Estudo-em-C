@@ -143,12 +143,12 @@ int main()
                 break;
 
             case 5:
-                flagFinaliza = RS_FALSE_;
+                flagFinaliza = RS_TRUE_;
                 printf("opção: %d\n", opcao);
                 break;
 
             default:
-                flagFinaliza = RS_TRUE_;
+                flagFinaliza = RS_FALSE_;
                 printf("codigo invalido, digite novamente");
                 break;
         }
