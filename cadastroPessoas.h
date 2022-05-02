@@ -14,9 +14,8 @@
 
 typedef struct Pessoa
 {
-    int         id;
     char        nome[101]; 
     char        email[101];
     long int    cpf;
 
-} pessoa; 
+} pessoa[10]; 

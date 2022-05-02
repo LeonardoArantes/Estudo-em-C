@@ -12,7 +12,7 @@
  - abertura, pergunta ao usuario se ele deseja cadastrar alguma pessoa --OK
 
  - estrutura de tipos onde as pessoas poderão ser cadastradas, nome, email, cpf --OK
- - Adição --OK 
+ - Adição --REVISANDO 
  - Edição
  - Leitura 
  - Exclusão de cadastros 
@@ -22,28 +22,50 @@
 
 void menu(void)
 {
-    printf("             Cadastro Pessoas           \n");
-    printf("----------------------------------------\n");
-    printf("---- Escolha entre as opções abaixo ----\n");
-    printf("Criar:[1] Ler:[2] Editar:[3] Deletar:[4]\n");
-    printf("    caso queira finalizar digite:[5]    \n");
+    printf("              Cadastro Pessoas             \n");
+    printf("------------------------------------------ \n");
+    printf("---- Choose between the options below ---- \n");
+    printf("- Create:[1] Read:[2] Edit:[3] Delete:[4] -\n");
+    printf("         to close the program:[5]          \n");
 }
 
 //função para adicionar novo cadastro
 void AdicionaCadastro(struct Pessoa *pessoa)
 {
-    printf("adicione um novo cadastro\n");
-    printf("Digite o nome\n");
-    scanf(" %[^\n]", pessoa->nome);
+    int option;
+    for(int i; i < sizeof(pessoa); i++)
+    {
+        printf("adicione um novo cadastro\n");
+        printf("Digite o nome\n");
+
+        fflush(stdin);
+        fgets(pessoa->nome, 40, stdin);
     
-    printf("Digite e-mail\n");
-    scanf(" %s", pessoa->email);
+        printf("Digite e-mail\n");
+        scanf(" %s", &pessoa->email);
 
-    printf("Digite cpf\n");
-    scanf(" %ld", &pessoa->cpf);
+        printf("Digite cpf\n");
+        scanf(" %ld", &pessoa->cpf);
 
-    printf("confirmar dados: nome[%s], email[%s], CPF[%li]", pessoa->nome, pessoa->email, pessoa->cpf);
+        printf("confirmar dados: id[%d], nome[%s], email[%s], CPF[%li]\n", i, pessoa->nome, pessoa->email, pessoa->nome);
+
+        printf("deseja adicionar o proximo cadastro?"); 
+        scanf("%d", option);
+
+        //maneira de continuar / encerrar a aplicação
+        switch (option)
+        {
+        case 1:
+            break;
+        case 0:
+            
+        default:
+            break;
+        }
+    
+    }
 }
+
 //função para Editar um cadastro existente
 void EditaCadastro(struct Pessoa *pessoa)
 {
@@ -105,55 +127,61 @@ void EditaCadastro(struct Pessoa *pessoa)
 
 int main()
 {  
-    struct Pessoa *pessoa;
+    struct Pessoa pessoa;
     char acrescentar;
-    int flagFinaliza;
+    int flagClose;
 
     setlocale(LC_ALL, "Portuguese"); 
     menu();
     //colocar a função dentro de um loop do-while
     do
-    {
-        int opcao;
-        scanf(" %d", &opcao);
-        switch(opcao)
+    {   
+        int option;
+        scanf(" %d", &option);
+        switch(option)
         {
             case 1:
-                flagFinaliza = RS_FALSE_;
-                printf("opção: %d\n", opcao);
-                AdicionaCadastro(pessoa);
+                flagClose == RS_FALSE_;
+                printf("option: %d\n", option);
+                AdicionaCadastro(&pessoa);
+                menu();
                 break;
 
             case 2:
-                flagFinaliza = RS_FALSE_;
-                printf("opção: %d\n", opcao);
-                EditaCadastro(pessoa);
+                flagClose == RS_FALSE_;
+                printf("option: %d\n", option);
+                EditaCadastro(&pessoa);
+                menu();
                 break;
 
             case 3:
-                flagFinaliza = RS_FALSE_;
-                printf("opção: %d\n", opcao);
-                //TODO
+                flagClose == RS_FALSE_;
+                printf("option: %d\n", option);
+                menu();
                 break;
 
             case 4:
-                flagFinaliza = RS_FALSE_;
-                printf("opção: %d\n", opcao);
-                //TODO
+                flagClose == RS_FALSE_;
+                printf("option: %d\n", option);
+                menu();
                 break;
 
             case 5:
-                flagFinaliza = RS_TRUE_;
-                printf("opção: %d\n", opcao);
+                flagClose == RS_TRUE_;
+                printf("option: %d\n", option);
+                menu();
                 break;
 
             default:
-                flagFinaliza = RS_FALSE_;
-                printf("codigo invalido, digite novamente");
+                flagClose == RS_FALSE_;
+                printf("wrong code, type again");
+                menu();
                 break;
         }
                
-    } while(flagFinaliza = RS_TRUE_);         
+    } while(flagClose == RS_TRUE_);
+
+    printf("Program closed!!!");         
 
     return 0;
 }
