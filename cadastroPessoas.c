@@ -30,46 +30,47 @@ void menu(void)
 }
 
 //função para adicionar novo cadastro
-void AdicionaCadastro(struct Pessoa *pessoa)
+void AdicionaCadastro(struct tp_cadastro *cadastro)
 {
-    int option;
-    for(int i; i < sizeof(pessoa); i++)
-    {
-        printf("adicione um novo cadastro\n");
-        printf("Digite o nome\n");
-
-        fflush(stdin);
-        fgets(pessoa->nome, 40, stdin);
-    
-        printf("Digite e-mail\n");
-        scanf(" %s", &pessoa->email);
-
-        printf("Digite cpf\n");
-        scanf(" %ld", &pessoa->cpf);
-
-        printf("confirmar dados: id[%d], nome[%s], email[%s], CPF[%li]\n", i, pessoa->nome, pessoa->email, pessoa->nome);
-
-        printf("deseja adicionar o proximo cadastro?"); 
-        scanf("%d", option);
-
-        //maneira de continuar / encerrar a aplicação
-        switch (option)
+    int i = 0;
+    int flagContinue = RS_TRUE_;
+    do
+    {   
+        if (flagContinue == RS_TRUE_)
         {
-        case 1:
-            break;
-        case 0:
+            printf("adicione um novo cadastro\n");
+            printf("Digite o nome\n");
+
+            fflush(stdin);
+            fgets(cadastro[i].pessoa.nome, 40, stdin);
+                
+            printf("Digite e-mail\n");
+            scanf(" %s", &cadastro[i].pessoa.email);
+
+            printf("Digite cpf\n");
+            scanf(" %ld", &cadastro[i].pessoa.cpf);
+
+            printf("confirmar dados: id[%d], nome[%s], email[%s], CPF[%li]\n", i, cadastro[i].pessoa.nome, cadastro[i].pessoa.email, cadastro[i].pessoa.nome);
+
+            printf("Add next \n"); 
+            printf("type 1 to continue, type 0 to close\n");
+            scanf("%d", flagContinue);
+            //maneira de continuar / encerrar a aplicação
             
-        default:
-            break;
+            if(flagContinue == RS_TRUE_)
+            {
+                i++;
+            }
         }
-    
     }
+    while(flagContinue == RS_FALSE_);
 }
 
 //função para Editar um cadastro existente
-void EditaCadastro(struct Pessoa *pessoa)
+void EditaCadastro(struct tp_cadastro * cadastro)
 {
     char option;
+    int index;
 
     printf("Edição de cadastro:\n");
     printf("escolha uma opção:\n");
@@ -80,54 +81,73 @@ void EditaCadastro(struct Pessoa *pessoa)
 
     switch (option)
     {
-    case ALL:
-        printf("Seleção: todas as entradas\n");
-        memset(&pessoa->nome, '\0', sizeof(pessoa->nome));
-        memset(&pessoa->email, '\0', sizeof(pessoa->email));
-        memset(&pessoa->cpf, '\0', sizeof(pessoa->cpf));
-        
-        printf("Digite o nome\n");
-        scanf(" %[^\n]", pessoa->nome);
-        
-        printf("Digite e-mail\n");
-        scanf(" %s", pessoa->email);
+        case ALL:
+            printf("select the index");
+            for(index = 0; index < 10; index++)
+            {
+                if(strlen(cadastro[index].pessoa.nome) > 0){
+                    printf("%s\n", cadastro[index].pessoa.nome);
+                }
+            }
+            //scanf(""); escanear o idex que será alterado
+            printf("Seleção: todas as entradas\n");
+            memset(&cadastro[index].pessoa.nome, '\0', sizeof(cadastro[index].pessoa.nome));
+            memset(&cadastro[index].pessoa.email, '\0', sizeof(cadastro[index].pessoa.email));
+            memset(&cadastro[index].pessoa.cpf, '\0', sizeof(cadastro[index].pessoa.cpf));
+            
+            printf("Digite o nome\n");
+            scanf(" %[^\n]", &cadastro[index].pessoa.nome);
+            
+            printf("Digite e-mail\n");
+            scanf(" %s", &cadastro[index].pessoa.email);
 
-        printf("Digite cpf\n");
-        scanf(" %ld", &pessoa->cpf);
-        break;
+            printf("Digite cpf\n");
+            scanf(" %ld", &cadastro[index].pessoa.cpf);
+            break;
 
-    case NAME:
-        printf("Seleção: Nome\n");
-        memset(&pessoa->nome, '\0', sizeof(pessoa->nome));
-        
-        printf("Digite o nome\n");
-        scanf(" %[^\n]", pessoa->nome);
-        break;
+        case NAME:
+            printf("Seleção: Nome\n");
+            memset(&cadastro[index].pessoa.nome, '\0', sizeof(&cadastro[index].pessoa.nome));
+            
+            printf("Digite o nome\n");
+            //trocar para fgets
+            scanf(" %[^\n]", &cadastro[index].pessoa.nome);
+            break;
 
-    case EMAIL:
-        printf("Seleção: E-mail\n");
-        memset(&pessoa->email, '\0', sizeof(pessoa->email));
+        case EMAIL:
+            printf("Seleção: E-mail\n");
+            memset(&cadastro[index].pessoa.email, '\0', sizeof(&cadastro[index].pessoa.email));
 
-        printf("Digite e-mail\n");
-        scanf(" %s", pessoa->email);
-        break;
+            printf("Digite e-mail\n");
+            scanf(" %s", &cadastro[index].pessoa.email);
+            break;
 
-    case CPF:
-        printf("Seleção: CPF\n");
-        memset(&pessoa->cpf, '\0', sizeof(pessoa->cpf));
-        
-        printf("Digite cpf\n");
-        scanf(" %ld", &pessoa->cpf);
-        break;
+        case CPF:
+            printf("Seleção: CPF\n");
+            memset(&cadastro[index].pessoa.cpf, '\0', sizeof(&cadastro[index].pessoa.cpf));
+            
+            printf("Digite cpf\n");
+            scanf(" %ld", &cadastro[index].pessoa.cpf);
+            break;
 
-    default:
-        break;
+        default:
+            break;
     }
 }
 
+/*
+função para pesquisa entre os valores atribuidos para as pessoas
+deve retornar uma lista de nomes e a posição na struct[i]
+a partir de comando, deve retornar todas as outras informações de cadastro, como emial, cpf 
+
+void Select(struct Cadastro cadastro)
+{
+
+}
+*/
 int main()
 {  
-    struct Pessoa pessoa;
+    struct tp_cadastro *cadastro;
     char acrescentar;
     int flagClose;
 
@@ -143,14 +163,14 @@ int main()
             case 1:
                 flagClose == RS_FALSE_;
                 printf("option: %d\n", option);
-                AdicionaCadastro(&pessoa);
+                AdicionaCadastro(cadastro);
                 menu();
                 break;
 
             case 2:
                 flagClose == RS_FALSE_;
                 printf("option: %d\n", option);
-                EditaCadastro(&pessoa);
+                EditaCadastro(cadastro);
                 menu();
                 break;
 
