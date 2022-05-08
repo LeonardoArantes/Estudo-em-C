@@ -12,10 +12,25 @@
 #define EMAIL       3
 #define CPF         4
 
-typedef struct Pessoa
+
+struct Date
+{
+    int dia;
+    int mes;
+    int ano;
+};
+
+struct Pessoa
 {
     char        nome[101]; 
     char        email[101];
     long int    cpf;
+}; 
 
-} pessoa[10]; 
+
+struct tp_cadastro
+{
+    struct Pessoa pessoa;   
+    struct Date date;
+
+}cadastro[10];
